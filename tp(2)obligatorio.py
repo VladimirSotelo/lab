@@ -50,8 +50,7 @@ def main():
     print("2) editar:")
     print("3) buscar:")
     print("4) buscar todo:\n")
-    opt =int(input(""))
-    if (opt == 1):
-        
-        ADMIN.agregar_tarea(mi_tarea)
+    
+    
+    
     
