@@ -1,29 +1,30 @@
 from tinydb import TinyDB, Query
 from datetime import datetime
 from typing import List
-import uuid
+
 class Tarea:
-    def __init__(self,id,titulo,descripcion,estado,creada,actualizada):
-        self.id=none
+    def __init__(self,id,titulo,descripcion):
+        self.id=str(uuid.uuid4())
         self.titulo=titulo
         self.descripcion=descripcion
         self.estado="pendiente"
         self.creada=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.actualizada=self.creada
     def __str__(self):
+        if len('id')  == 0:
+            tarea['id']+=1
         return f"[{self.id}]{self.titulo}({self.estado})"
 
 class admintarea:
     def __init__(self,db_path):
-        self.db=TinyDB(db_path)
+        self.db=TinyDB('tareas.json')
         self.tarea=Query()
+        self.tareas =[]
     def agregar_tarea(self,tarea:Tarea)->int:
-        tarea.id=len(self.tareas )+1
-        self.tareas.append(tarea)
-    
+        
         tarea_dict = tarea.__dict__
-        self.db.insert(tarea_dict)
-        return tarea.id
+        self.tarea.insert(tarea_dict)
+        
     def traer_tarea(self,tarea_id:int)->Tarea:
         tarea = self.db.get(self.Tarea.id == tarea_id)
         return Tarea(**tarea)if tarea else none
@@ -47,7 +48,10 @@ class admintarea:
         return tareas
 
 def main():
-    admi_tarea=admintarea('tarea.json')
+    admi_tarea=admintarea('tareas.json')
+    
+    
+    
     while True:
         print("1) agragar:")
         print("2) ver:")
@@ -58,10 +62,12 @@ def main():
         opt=input("seleccione una opcion:")
 
         if opt =="1":
+            
             titulo =input("ingrese titulo: ")
             descripcion=input("ingrese una descripcion: ")
-            tarea = Tarea(id,titulo,descripcion,estado,creada,actualizada)
-            id=tarea_id
+            tarea = Tarea(id,titulo,descripcion)
+            tarea_id=tarea.id
+
             print(f"tarea agregada con ID {tarea_id} ")
         elif opt == "2":
             tarea_id =input("ingrese el ID de la tarea")

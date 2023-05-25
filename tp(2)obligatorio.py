@@ -1,6 +1,6 @@
 from tinydb import TinyDB ,Query
 from datetime import datetime
-import taks
+
 
 class tarea:
     def __init__(self,id,titulo,descripcion,estado,creada,actualizada):
@@ -13,13 +13,13 @@ class tarea:
 
 class admintarea:
     def __init__(self,db_tarea):
-        self.db=TinyDB('tareas')
-        self.tarea=self.db.table('tarea')
+        self.db=TinyDB('tarea.json')
+        self.tarea=self.db.table('tarea.json')
     def agregar_tarea(self,tarea):
         tarea_dict=tarea.__dict__
         tarea_dict['creada']=datetime.now().strftime("%Y-%m-%d H%:%M:%S")
         tarea_dict['actualizada']=tarea_dict['creada']
-        self.Tarea.inser(tarea_dict)
+        self.tarea.insert(tarea_dict)
     def traer_tarea(self,tarea_id):
         tarea = Query()
         resul=self.tarea.search(tarea.id == tarea_id)
@@ -44,7 +44,7 @@ class admintarea:
 
 def main():
     mi_tarea=tarea(id, titulo, descripcion, estado, creada, actualizada)
-    ADMIN=admintarea('tareas') 
+    ADMIN=admintarea('tarea.json') 
     
     print("1) agragar:")
     print("2) editar:")
